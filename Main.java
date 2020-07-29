@@ -1,6 +1,8 @@
 class Main {
     public static void main(String[] args) {
         String CSVFilename = args[0];
+        boolean testSuccess;
+        testSuccess = testCSVToAPI(CSVFilename);
     }
 
     private static boolean testCSVToAPI(String csvFile) {
