@@ -1,28 +1,27 @@
+import java.util.HashMap;
+
 class Main {
     public static void main(String[] args) {
         String CSVFilename = args[0];
         boolean testSuccess;
-        testSuccess = testCSVToAPI(CSVFilename);
+        testSuccess = testCSVReader(CSVFilename);
+        System.out.println("Test status: " + testSuccess);
     }
 
-    private static boolean testCSVToAPI(String csvFile) {
+    private static boolean testCSVReader(String csvFile) {
         boolean testSuccess = true;
-        CSVToAPI csvAPIInterpreter;
-        boolean returnStatus;
-        System.out.println("Beginning test of CSVToAPI class...");
+        CSVReader suT;
+        System.out.println("Beginning test of CSVReader class...\n\n");
 
-        // Pass a CSV file to CSVToAPI object constructor
-        csvAPIInterpreter = CSVToAPI.createInterpreter(csvFile);
+        // Pass a CSV file to CSVReader object constructor
+        suT = CSVReader.instantiateCSVReader(csvFile);
 
-        // Instruct CSVToAPI object to translate CSV into API calls
-        returnStatus = csvAPIInterpreter.translateCSVToAPI();
-        // Check if successful. Failed transaltion = False return value
+        // Get the field names of the CSV file.
+        final HashMap<String, String> suTTestA = suT.getNextFieldValues();
+        // print the output of above method
+        System.out.println(suTTestA.toString());
 
-        // Instruct CSVToAPI object to make API calls.
-        returnStatus = csvAPIInterpreter.makeAPIRequests();
-        // Check if successful. Failed transaltion = False return value
-
-        System.out.println("Finishing CSVToAPI test...");
+        System.out.println("\n\nFinishing CSVReader test...");
 
         return testSuccess;
     }
