@@ -16,7 +16,6 @@ public class CSVReader {
 
     private CSVReader(Scanner scanner) {
         rowScanner = scanner.useDelimiter("\n");
-
         columnHeaders = getColumnHeaders();
     }
 
@@ -53,10 +52,17 @@ public class CSVReader {
      *
      * @return String array representing the column headers in CSV file
      */
-    private String[] getColumnHeaders() {
-        String[] columnHeaders;
-        // The first invocation of getRowValues() will return the column headers
-        columnHeaders = getRowValues();
+    public String[] getColumnHeaders() {
+        String[] columnHeaders = this.columnHeaders;
+
+        // Only pull the headers from file iff it has not already been done.
+        // Saves needless reads to the file, and potential for incorrect data to be returned
+        // (i.e. the next row of CSV which is not the column headers)
+        if (columnHeaders == null) {
+            // The first invocation of getRowValues() will return the column headers
+            columnHeaders = getRowValues();
+        }
+
         return columnHeaders;
     }
 
